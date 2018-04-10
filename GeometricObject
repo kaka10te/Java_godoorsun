@@ -1,3 +1,4 @@
+```java
 
 import java.util.Scanner;
 
@@ -67,3 +68,5 @@ public class Main {
 		scan.close();
 	}
 }
+
+```
