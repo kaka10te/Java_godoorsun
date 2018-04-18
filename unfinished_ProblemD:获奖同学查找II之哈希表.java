@@ -30,10 +30,10 @@ public class Main {
 			return true;
 		for(int q=0;q<=(p-1)/2;q++) {
 			h=(kx+q*q)%p;
-			if(bl[h]==kx)
+			if(h<=p&&bl[h]==kx)
 				return true;
 			h=(kx-q*q)%p;
-			if(bl[h]==kx)
+			if(h>=0&&bl[h]==kx)
 				return true;
 		}
 		return false;
@@ -52,15 +52,16 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 	        while(scan.hasNext()){
 	            int n=scan.nextInt();
-	            int []base=new int [n] ;
 	            int p=100000;//取余
+	            int []base=new int [p] ;
+	            
 //	            a.Init(base,n);//顺序存储方法
 	            
 //	            for(int i=0;i<n;i++){//顺序存储
 //	    			base[i]=scan.nextInt();
 //	            }
 	            
-	            for(int i=0;i<n;i++){//哈希存储
+	            for(int i=0;i<n;i++){//哈希存储,从零开始
 	            	base[i%p]=scan.nextInt();
 	            }
 	            
