@@ -6,32 +6,33 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan = new Scanner(System.in);
+
+		ArrayList<String> a = new ArrayList<String>();
+		while (scan.hasNext()) {
+			a.add(scan.nextLine());
+		}
+		int num[] = new int[100];
+		for (int i = 0; i < a.size(); i++) {
+			num[i] = Integer.parseInt(a.get(i).substring(1, 12));
+		}
 		
-			ArrayList<String> a = new ArrayList<String>();
-			while(scan.hasNext()){
-				a.add(scan.nextLine());
-			}
-			scan.close();
-			
-			int c[]=new int[100];
-			for(int i=0;i<a.size();i++){
-				c[i]=Integer.parseInt(a.get(i).substring(7, 12));
-			}
-			
-			int cc[]=new int[100];
-			cc[0]=0;
-			for(int i=0;i<a.size();i++){
-				for(int j=0;j<a.size();j++){
-					if(c[j]>c[j+1]&&c[j]>c[cc[i]])
-						cc[j]=j+1;
+		int temp;
+		for (int i = 0; i < a.size() - 1; i++) {
+			for (int j = 0; j < a.size() - i - 1; j++) {
+				if (num[j] > num[j + 1]) {
+					temp = num[j];
+					num[j] = num[j + 1];
+					num[j + 1] = temp;
 				}
 			}
-			for(int i=0;i<a.size();i++){
-				System.out.println(a.get(cc[i]));
+		}
+
+		for (int x = 0; x < a.size(); x++) {
+			for (int j = 0; j < a.size(); j++) {
+				if (num[x] == Integer.parseInt(a.get(j).substring(1, 12)))
+					System.out.println(a.get(j));
 			}
-
-		
-		
-
+		}
+		scan.close();
 	}
 }
