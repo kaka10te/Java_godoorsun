@@ -8,10 +8,11 @@ public class Main {
 		Scanner scan = new Scanner(System.in);
 		
 			ArrayList<String> a = new ArrayList<String>();
-			
 			while(scan.hasNext()){
 				a.add(scan.nextLine());
 			}
+			scan.close();
+			
 			int c[]=new int[100];
 			for(int i=0;i<a.size();i++){
 				c[i]=Integer.parseInt(a.get(i).substring(7, 12));
@@ -30,7 +31,7 @@ public class Main {
 			}
 
 		
-		scan.close();
+		
 
 	}
 }
