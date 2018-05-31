@@ -1,0 +1,117 @@
+<html>  
+  <head>  
+        <meta charset="utf-8">  
+        <title>抄袭网络图</title>  
+  </head> 
+
+<style>
+
+
+</style>
+    <body>  
+		<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>  
+        <script>		   
+					   
+var nodes = [ { name: "08eddabb828f7be3312e39b6b348fd7e" },{ name: "0d80656d1077c3cc4bc9067182c86bbc" },{ name: "12f408e22e0685da8672a7f8aac22fca" },{ name: "18d5f25dcfbf7d3fb351432e5f43b71c" },
+{ name: "2fe19e8105890ade74ef57fd227da2fa" },{ name: "35a6c45ca1db5674b2ebcb602ceded50" },{ name: "3dc3749735c46aa2ae316d63875b2d28" },{ name: "44afc80df0c0f209841afdcd2525d096" },
+{ name: "49f250b1007da3c54876456d36f8b054" },{ name: "50df31414b2239d83af808434616afb5" },{ name: "53fb8c32cec31be823bad8b019a8f1a2" },{ name: "5780a2c3e2eeda2b73215dd6b5d491f7" },
+{ name: "65f94df2c54451d14fdf4fe3d5d8eeb6" },{ name: "67c55ba813981e3eff59d6df1f50c4fe" },{ name: "6c3b8e9138887244642290a8306a8489" },{ name: "736fcf550d3c98f84a8573fd7aba3fff" },
+{ name: "76e77986a8410443ddbe7fe901391930" },{ name: "7fe2bf9734f8c953aed1a8fecffec296" },{ name: "808dd07af8907d5a33310b916000649a" },{ name: "82ac84fd02c73a224a067c96892e54c2" },
+{ name: "8ca7edfc418bc6bb4c4ab554b31a00f4" },{ name: "96be950cb442c8a12fc9ccf4b33046da" },{ name: "9b307c918011d9bd353a84bd3946c692" },{ name: "a1ac35aa7e343604bdf05b7558e5d2b2" },
+{ name: "a26e296e95dd5f0f0616b556669d4fb7" },{ name: "aba1cd3b671be1918ce8923ddfa6c1b9" },{ name: "b17782be90ec2190dfaf89d54bebe498" },{ name: "b2cb9740d61b75c03178f71983231f21" },
+{ name: "b5c89539dc012db92bffd5c0865fe549" },{ name: "b7985f3352b1cc58833876858fe14d93" },{ name: "bcc9cc0c8889a34e9bcf5afaaed0e07a" },{ name: "c2643727f85009187ffd849ca5bfa7d1" },
+{ name: "caef61cc3a29d513090a61d00707bbe4" },{ name: "d741a01876b3dd97120568deeec99ccf" },{ name: "d754321a5422d303136c3966fe0b3688" },{ name: "e4a3ce2682d105f960b2017b69773a94" },
+{ name: "e60f435260d9bc578467e6fdc90be85c" },{ name: "e74c2aa62863d8f31df183c626dbceee" },{ name: "eba501c4f104b954c1f468373bac7fbd" },{ name: "f0cc1c29b15d68cca19d0c0f5d8814b7" },
+{ name: "f6b12c9949b5b7e91c36421bcfd059dd" },{ name: "fd695518057568470195296a11128cfa" }];
+					 
+var edges = [ { source : 1, target:0} ,{ source : 3, target:2} ,{ source : 4, target:2} ,{ source : 6, target:5} ,
+{ source : 7, target:6} ,{ source : 8, target:0} ,{ source : 10, target:9} ,{ source : 11, target:6} ,
+{ source : 13, target:12} ,{ source : 15, target:14} ,{ source : 16, target:9} ,{ source : 18, target:17} ,
+{ source : 4, target:19} ,{ source : 10, target:9} ,{ source : 7, target:6} ,{ source : 21, target:20} ,
+{ source : 21, target:20} ,{ source : 1, target:0} ,{ source : 15, target:14} ,{ source : 22, target:19} ,
+{ source : 13, target:12} ,{ source : 24, target:23} ,{ source : 7, target:25} ,{ source : 15, target:14} ,
+{ source : 27, target:26} ,{ source : 25, target:6} ,{ source : 13, target:12} ,{ source : 28, target:19} ,
+{ source : 30, target:29} ,{ source : 12, target:31} ,{ source : 32, target:0} ,{ source : 33, target:20} ,
+{ source : 4, target:34} ,{ source : 24, target:17} ,{ source : 10, target:35} ,{ source : 1, target:0} ,
+{ source : 37, target:36} ,{ source : 16, target:9} ,{ source : 8, target:22} ,{ source : 34, target:19} ,
+{ source : 38, target:5} ,{ source : 21, target:20} ,{ source : 40, target:39} ,{ source : 7, target:25} ,
+{ source : 33, target:20} ,{ source : 41, target:19} ,{ source : 33, target:20} ,{ source : 18, target:19} ,
+{ source : 37, target:36} ,{ source : 15, target:14} ,{ source : 16, target:9} ,{ source : 33, target:20} 
+];
+		
+		var width = 1280;
+		var height = 800;
+		
+		
+		var svg = d3.select("body")
+					.append("svg")
+					.attr("width",width)
+					.attr("height",height);
+		
+		var force = d3.layout.force()
+				.nodes(nodes)		//指定节点数组
+				.links(edges)		//指定连线数组
+				.size([width,height])	//指定范围
+				.linkDistance(150)	//指定连线长度
+				.charge(-400);	//相互之间的作用力
+
+		force.start();	//开始作用
+
+		console.log(nodes);
+		console.log(edges);
+		
+		//添加连线		
+		var svg_edges = svg.selectAll("line")
+							.data(edges)
+							.enter()
+							.append("line")
+							.style("stroke","#ccc")
+							.style("stroke-width",5);
+		
+					
+		var color = d3.scale.category20();							
+		//添加节点			
+		var svg_nodes = svg.selectAll("circle")
+							.data(nodes)
+							.enter()
+							.append("circle")
+							.attr("r",10)
+							.style("fill",function(d,i){
+								return color(i);
+							})
+							.call(force.drag);	//使得节点能够拖动
+
+		//添加描述节点的文字
+		var svg_texts = svg.selectAll("text")
+							.data(nodes)
+							.enter()
+							.append("text")
+							.style("fill", "black")
+							.attr("dx", 20)
+							.attr("dy", 8)
+							.text(function(d){
+								return d.name.slice(0,5);
+							});
+					
+
+		force.on("tick", function(){	//对于每一个时间间隔
+		
+			 //更新连线坐标
+			 svg_edges.attr("x1",function(d){ return d.source.x; })
+			 		.attr("y1",function(d){ return d.source.y; })
+			 		.attr("x2",function(d){ return d.target.x; })
+			 		.attr("y2",function(d){ return d.target.y; });
+			 
+			 //更新节点坐标
+			 svg_nodes.attr("cx",function(d){ return d.x; })
+			 		.attr("cy",function(d){ return d.y; });
+
+			 //更新文字坐标
+			 svg_texts.attr("x", function(d){ return d.x; })
+			 	.attr("y", function(d){ return d.y; });
+		});
+		  
+        </script>  
+		
+    </body>  
+</html>  
