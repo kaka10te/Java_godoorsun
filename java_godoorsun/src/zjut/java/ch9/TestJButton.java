@@ -36,8 +36,8 @@ public class TestJButton extends JFrame {
 			rg.add(r[i]);// 组成ButtonGroup，这样二者只能同时选中一项
 		}
 		// 设置单选框的选择状态
-		r[0].setSelected(true);
-		r[1].setSelected(false);
+		r[0].setSelected(false);
+		r[1].setSelected(true);
 
 		setSize(300, 150);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
