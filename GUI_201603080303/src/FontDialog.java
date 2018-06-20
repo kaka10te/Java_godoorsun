@@ -1,11 +1,18 @@
-
-import java.awt.*;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 
-public class TestJComboBox extends JFrame implements ActionListener {
+public class FontDialog extends JDialog implements ActionListener {
 	/**
 	 * 
 	 */
@@ -15,17 +22,17 @@ public class TestJComboBox extends JFrame implements ActionListener {
 	JComboBox<String> cbxFontSize = new JComboBox<String>();// 字体大小
 	JButton yesbtn = new JButton("确认");
 	JButton cancelbtn = new JButton("取消");
-	static Font selectFont; 
+	static Font selectFont;
 
 	public Font getSelectFont() {
 		return selectFont;
 	}
 
 	public void setSelectFont(Font selectFont) {
-		TestJComboBox.selectFont = selectFont;
+		FontDialog.selectFont = selectFont;
 	}
 
-	TestJComboBox(String sTitle) {
+	FontDialog(String sTitle) {
 		super();
 
 		Container c = getContentPane();
@@ -41,8 +48,17 @@ public class TestJComboBox extends JFrame implements ActionListener {
 		// 初始化字体与大小下拉框
 		setVisible(true);
 		InitFonts();
-		setSize(300, 140);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// 居中
+		int windowW = 300;
+		int windowH = 140;
+		Dimension tool = Toolkit.getDefaultToolkit().getScreenSize();
+		int screenW = tool.width;
+		int screenH = tool.height;
+		this.setLocation(screenW / 2 - windowW / 2, screenH / 2 - windowH / 2);
+
+		this.setSize(300, 140);
+//		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 
 	// 初始化字体框
@@ -68,14 +84,13 @@ public class TestJComboBox extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		// System.out.println(ta.getFont());
-		if(e.getSource()==yesbtn) {
+		if (e.getSource() == yesbtn) {
 			String fontname = cbxFont.getSelectedItem().toString();
 			int sizeFont = Integer.parseInt(cbxFontSize.getSelectedItem().toString());
-			selectFont = new Font(fontname,Font.PLAIN,sizeFont);
-			TestJFrameExtends.getTa().setFont(selectFont);
-			dispose();
+			selectFont = new Font(fontname, Font.PLAIN, sizeFont);
+			Notebook.getTa().setFont(selectFont);
 		}
-		if(e.getSource()==cancelbtn) {
+		if (e.getSource() == cancelbtn) {
 			dispose();
 		}
 		// System.out.println(ta.getFont());
