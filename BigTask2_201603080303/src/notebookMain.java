@@ -1,7 +1,7 @@
 
 public class notebookMain {
 	public static void main(String args[]) {
-		Notebook frm = new Notebook("记事本");
+		Notebook frm = new Notebook("表格");
 		frm.setVisible(true);
 	}
 }
